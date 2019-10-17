@@ -1,0 +1,24 @@
+{
+  "name": "canta-galo",
+  "version": "1.0.0",
+  "description": "Makes a rooster sing",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcelogo/canta-galo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcelogo/canta-galo/issues"
+  },
+  "homepage": "https://github.com/marcelogo/canta-galo#readme"
+}
