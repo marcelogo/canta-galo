@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = process.env["PORT"] || 80
+const port = process.env["PORT"] || 8080
 
 let pilha = [];
 let threshold = 5;
@@ -10,14 +10,15 @@ function agora(){
     return new Date().getTime();
 }
 
-function cantaGalo(){
-    pilha.push(agora());
-
+function pruneStack() {
     while (pilha.length > threshold) {
         pilha.shift();
     }
+}
 
-    console.log("PIlha: ", pilha);
+function cantaGalo(){
+    pilha.push(agora());
+    pruneStack();
 }
 
 function lowerBound(){
@@ -36,8 +37,6 @@ app.get('/canta-galo', (req, res) => res.send(shouldCanta()? "canta" : "cala"))
 
 app.post('/canta-galo', (req, res) => {
     cantaGalo()
-    //X-Forwarded-Host
-    console.log("shouldCanta()", shouldCanta());
     res.send(200)
 })
 
