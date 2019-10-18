@@ -16,8 +16,19 @@ const pruneStack = () => {
     }
 }
 
-const cantaGalo = () => {
-    pilha.push(agora());
+const createGaloRequest = (message) => {
+    const user = (message && message.user_name) || "default"
+    return {user: user, timestamp: agora()}
+};
+
+const hasRequestForUser = (message) => {
+    return !!pilha.find(galoReq => galoReq.user === message.user_name)
+}
+
+const cantaGalo = (message) => {
+    if (!hasRequestForUser(message)) {
+        pilha.push(createGaloRequest(message));
+    }
     pruneStack();
 }
 
@@ -25,8 +36,8 @@ const lowerBound = () => {
     return agora() - timeWindowMillisecs;
 }
 
-const isCallWithinWindow = (call) => {
-    return call >= lowerBound();
+const isCallWithinWindow = (galoReq) => {
+    return galoReq.timestamp >= lowerBound();
 }
 
 const isStackFull = () => !!pilha[threshold -1]
@@ -69,7 +80,7 @@ module.exports.galoGET = (req, res) => {
 }
 
 module.exports.galoPOST = (req, res) => {
-    cantaGalo()
+    cantaGalo(req.body)
     checkForceNextSing(req)
     if (logEnabled) {
         console.log("req.headers", req.headers);
