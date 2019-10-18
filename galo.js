@@ -61,10 +61,11 @@ const checkForceNextSing = (req) => {
 }
 
 module.exports.galoGET = (req, res) => {
+    const result = shouldCanta();
     if (logEnabled) {
-        console.log("get: ", shouldCanta())
+        console.log("get: ", result)
     }
-    res.send(shouldCanta()? "canta" : "cala");
+    res.send(result? "canta" : "cala");
 }
 
 module.exports.galoPOST = (req, res) => {
