@@ -86,6 +86,7 @@ module.exports.galoPOST = (req, res) => {
         console.log("req.headers", req.headers);
         console.log("req.params", req.params);
         console.log("req.body", req.body);
+        console.log("pilha", pilha);
     }
     
     res.send(200, niceMessage())
