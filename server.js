@@ -1,5 +1,8 @@
 const express = require('express')
 const app = express()
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const port = process.env["PORT"] || 8080
 const logEnabled = (process.env["LOG"] == "true");
 let pilha = [];
@@ -56,6 +59,7 @@ app.post('/canta-galo', (req, res) => {
     if (logEnabled) {
         console.log("req.headers", req.headers);
         console.log("req.params", req.params);
+        console.log("req.body", req.body);
     }
     res.send(200, niceMessage())
 })
