@@ -60,7 +60,12 @@ const checkForceNextSing = (req) => {
     forceSing = (req.body && req.body.text === "magic word")
 }
 
-module.exports.galoGET = (req, res) => res.send(shouldCanta()? "canta" : "cala");
+module.exports.galoGET = (req, res) => {
+    if (logEnabled) {
+        console.log("get: ", shouldCanta())
+    }
+    res.send(shouldCanta()? "canta" : "cala");
+}
 
 module.exports.galoPOST = (req, res) => {
     cantaGalo()
