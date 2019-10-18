@@ -64,7 +64,7 @@ module.exports.galoGET = (req, res) => res.send(shouldCanta()? "canta" : "cala")
 
 module.exports.galoPOST = (req, res) => {
     cantaGalo()
-    checkForceNextSing()
+    checkForceNextSing(req)
     if (logEnabled) {
         console.log("req.headers", req.headers);
         console.log("req.params", req.params);
