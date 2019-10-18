@@ -4,6 +4,7 @@ const logEnabled = (process.env["LOG"] == "true");
 let pilha = [];
 let threshold = 5;
 let timeWindowMillisecs = 10000;
+let forceSing = false;
 
 const agora = () => {
     return new Date().getTime();
@@ -30,7 +31,14 @@ const isCallWithinWindow = (call) => {
 
 const isStackFull = () => !!pilha[threshold -1]
     
-const shouldCanta = () => isStackFull() && isCallWithinWindow(pilha[0])
+const shouldCanta = () => {
+    if (forceSing){
+        forceSing = false
+        return true
+    }
+
+    return isStackFull() && isCallWithinWindow(pilha[0])
+}
 
 const messages = [
     "Da Rooster will sing for you",
@@ -48,14 +56,20 @@ const niceMessage = () => {
     return messages[mId];
 }
 
+const checkForceNextSing = (req) => {
+    forceSing = (req.body && req.body.text === "magic word")
+}
+
 module.exports.galoGET = (req, res) => res.send(shouldCanta()? "canta" : "cala");
 
 module.exports.galoPOST = (req, res) => {
     cantaGalo()
+    checkForceNextSing()
     if (logEnabled) {
         console.log("req.headers", req.headers);
         console.log("req.params", req.params);
         console.log("req.body", req.body);
     }
+    
     res.send(200, niceMessage())
 }
