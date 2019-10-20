@@ -15,8 +15,8 @@ app.post('/canta-galo', galo.galoPOST)
 
 if (enable_http) {
     https.createServer({
-        key: fs.readFileSync('server.key'),
-        cert: fs.readFileSync('server.cert')
+        key: fs.readFileSync('/etc/letsencrypt/live/rooster.vnava.org/privkey.pem'),
+        cert: fs.readFileSync('/etc/letsencrypt/live/rooster.vnava.org/fullchain.pem')
     }, app).listen(port, () => {
         console.log(`Canta Galo listening on HTTPS port ${port}! [LOG=${process.env["LOG"]}]`)
       })
