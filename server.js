@@ -8,20 +8,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const port = process.env["PORT"] || 8080
-const enable_http = !!process.env["ENABLE_HTTPS"]
+const HTTP_ONLY = !!process.env["HTTP_ONLY"]
 
 app.get('/canta-galo', galo.galoGET)
 app.post('/canta-galo', galo.galoPOST)
 
-if (enable_http) {
+if (HTTP_ONLY) {
+    app.listen(port, () => console.log(`Canta Galoo listening on port ${port}! [LOG=${process.env["LOG"]}]`))
+} else {
     https.createServer({
         key: fs.readFileSync('/etc/letsencrypt/live/rooster.vnava.org/privkey.pem'),
         cert: fs.readFileSync('/etc/letsencrypt/live/rooster.vnava.org/fullchain.pem')
     }, app).listen(port, () => {
         console.log(`Canta Galo listening on HTTPS port ${port}! [LOG=${process.env["LOG"]}]`)
       })
-} else {
-    app.listen(port, () => console.log(`Canta Galoo listening on port ${port}! [LOG=${process.env["LOG"]}]`))
 }
 
 
