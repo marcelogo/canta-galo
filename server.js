@@ -17,8 +17,8 @@ if (!HTTP_ONLY) {
     https.createServer({
         key: fs.readFileSync('/etc/letsencrypt/live/rooster.vnava.org/privkey.pem'),
         cert: fs.readFileSync('/etc/letsencrypt/live/rooster.vnava.org/fullchain.pem')
-    }, app).listen(443, () => {
-        console.log(`Canta Galo listening on HTTPS port 443! [LOG=${process.env["LOG"]}]`)
+    }, app).listen(8443, () => {
+        console.log(`Canta Galo listening on HTTPS port 8443! [LOG=${process.env["LOG"]}]`)
       })
 }
 
