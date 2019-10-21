@@ -13,15 +13,14 @@ const HTTP_ONLY = !!process.env["HTTP_ONLY"]
 app.get('/canta-galo', galo.galoGET)
 app.post('/canta-galo', galo.galoPOST)
 
-if (HTTP_ONLY) {
-    app.listen(port, () => console.log(`Canta Galoo listening on port ${port}! [LOG=${process.env["LOG"]}]`))
-} else {
+if (!HTTP_ONLY) {
     https.createServer({
         key: fs.readFileSync('/etc/letsencrypt/live/rooster.vnava.org/privkey.pem'),
         cert: fs.readFileSync('/etc/letsencrypt/live/rooster.vnava.org/fullchain.pem')
-    }, app).listen(port, () => {
-        console.log(`Canta Galo listening on HTTPS port ${port}! [LOG=${process.env["LOG"]}]`)
+    }, app).listen(443, () => {
+        console.log(`Canta Galo listening on HTTPS port 443! [LOG=${process.env["LOG"]}]`)
       })
 }
 
+app.listen(port, () => console.log(`Canta Galoo listening on port ${port}! [LOG=${process.env["LOG"]}]`))
 
