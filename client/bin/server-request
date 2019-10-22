@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+curl -X POST http://ec2-3-105-241-196.ap-southeast-2.compute.amazonaws.com:8080/canta-galo

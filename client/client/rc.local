@@ -1,0 +1,4 @@
+# Put this in the rc.local file:
+#   sudo nano /etc/rc.local
+
+sudo /usr/bin/ruby /home/pi/rooster/client.rb &
